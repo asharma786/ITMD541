@@ -1,14 +1,7 @@
-body {
-    background-color: lightgrey;
-    color: blue;
+div {
+    background-color: burlywood;
+    width: 500px;
+    border: 10px Solid green;
+    padding: 10px;
+    margin: 2px;
   }
-  
-  h1 {
-    background-color: darkgreen;
-    color: white;
-  }
-  
-  div {
-    background-color: darkgreen;
-    color: white;
-  } 
