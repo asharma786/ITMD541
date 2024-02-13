@@ -1,8 +1,8 @@
 div {
-    background-color: burlywood;
+    background-color: rgba(222, 184, 135, 0.689);
     color: white;
     width: 500px;
-    border: 10px Solid blueviolet;
+    border: 10px Solid brown;
     padding: 10px;
     margin: 2px;
   }
