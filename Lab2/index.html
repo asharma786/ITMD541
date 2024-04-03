@@ -1,20 +1,96 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" media="screen" href="style.css">
-</head>
-<body>
-    <div class="lab_boxmodel">
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_calculator.css">
+    <title>Lab3-Tip Calculator</title>
+    </head>
+    <body>
+      <div class="header">
+        <h1>TIP CALCULATOR</h1>
+        </div>
+    <div class="background">
+      
 
-<h2>Astha Sharma</h2>
+        <div class="input">
+        
+        <h2>ITMD 541 - Lab 3 - Sakshi Choubey</h2>
+        <h1>TIP CALCULATOR</h1>
 
-<h3>Hello Professor/TA,<h3>
-I am in Second Semester, ITM.
-I am very new to Web Development and the whole CSS
-This class is very interactive and helping me to learn how to design
-The Future Goal of mine to become Cyber Security Head</div>
-</div>
+        <label for="bill_total">Bill Total</label> 
+          <input id="bill_total" name="bill_total" placeholder="Enter the bill amount">
+          <br><br>
+        
+        <label for="tip_percent">Tip Percentage </label> 
+          <input type="range" id="tip_percent" name="tax rate" min="0" max="100" oninput="rangeValue.innerText = this.value"> 
+          <label id="rangeValue">100 </label> 
+          <br><br>
 
+        <label for="tip_amount">Tip Amount 
+          <input type="number" id="tip_amount" disabled="">
+          <br><br>
+
+        <label for="total">Total Amount</label> 
+          <input type="number" id="total" name="total" disabled="">
+            <br><br>
+        
+        <button id="calculate" onclick="calculate_click">Total Amount </button> 
+        <button id="clear" onclick="clears">Clear</button>
+       
+        </div>
+    <br>
+    <br>
+    
+    <br>
+    </div>  
+    <script>
+      var $ = function(id) {
+    return document.getElementById(id);
+  }
+  var calculate_click = function(){
+    var billAmt = document.getElementById("bill_total").value;
+    var serviceQual = document.getElementById("tip_percent").value;
+    var billAmount = String(billAmt);
+
+    if (billAmt === "" || serviceQual == 0) {
+    alert("Please enter Total bill Amount");
+    return;
+  }
+  if(containsAnyLetters(billAmount)){
+    alert("Only numeric value allowed");
+    return;
+  }
+  else{
+    var TipAmount = (billAmt * serviceQual) / 100;
+    var Total =  (((billAmt * serviceQual) / 100) )+ billAmt * 1;
+    console.log(TipAmount);
+    console.log(Total);
+    var textbox3 = document.getElementById('tip_amount');
+    textbox3.value = TipAmount;
+    var textbox4 = document.getElementById('total');
+    textbox4.value = Total;
+  }
+  
+
+}
+function containsAnyLetters(str) {
+  return /[a-zA-Z]/.test(str);
+}
+var clears = function(){
+        
+        document.getElementById("bill_total").value = "";
+        document.getElementById("tip_percent").value = 50;
+        document.getElementById("tip_amount").value = "";
+        document.getElementById("total").value = "";
+    
+  }
+
+
+  window.onload = function(){
+    $("calculate").addEventListener('click',calculate_click);
+    $("clear").addEventListener('click', clears);
+    $("subtotal").focus();
+}
+    </script>
 </body>
 </html>
