@@ -1,48 +1,59 @@
-// Function to calculate and 
-// update values when t
-// he Bill Total input changes
-function calc1() {
+const billTotalInput = document.getElementById('billTotal');
+const tipPercentageInput = document.getElementById('tipPercentage');
+const tipSliderInput = document.getElementById('tip');
+const tipAmountInput = document.getElementById('tipAmount');
+const totalBillWithTipInput = document.getElementById('totalBillWithTip');
+const errorMessage = document.getElementById('errorMessage');
 
-    // Get the bill total from the 
-    // input field and round it to 2 decimal places
-    let total = parseFloat(document.getElementById("total").value).toFixed(2);
+function calculateTip() {
 
-    // Check if the total is less than 0 (negative)
-    if (total < 0) {
-        // Set tip-related fields to 0 and disable the tip input
-        document.getElementById("tip").value = 0;
-        document.getElementById("tipPercent").value = 0;
-        document.getElementById("tipAmount").value = 0;
-        document.getElementById("totalWithTip").value = 0;
-        document.getElementById("tip").disabled = true;
-        
-        // Display an error message
-        document.getElementById("errorMsg").innerHTML = "Enter a valid amount";
-    } else {
-        // Clear the error message
-        document.getElementById("errorMsg").innerHTML = "";
-        
-        // Enable the tip input and calculate tip-related values
-        document.getElementById("tip").disabled = false;
-        calc2();
-    }
+  const billTotalValue = billTotalInput.value.trim();
+
+  const MAX_BILL_TOTAL = 1e9; // Set maximum bill total to 1 billion
+
+  // Check if the input is a valid number
+  if (!isValidNumber(billTotalValue) && billTotalValue !== '') {
+    errorMessage.textContent = 'Please enter a valid number';
+    clearCalculation();
+    billTotalInput.classList.add('error');
+    return;
+  } else {
+    errorMessage.textContent = '';
+    billTotalInput.classList.remove('error');
+  }
+
+  const billTotal = parseFloat(billTotalInput.value);
+
+  // Check if the bill total exceeds the maximum limit
+  if (billTotal > MAX_BILL_TOTAL) {
+    errorMessage.textContent = 'The bill total exceeds the maximum limit';
+    clearCalculation();
+    billTotalInput.classList.add('error');
+    return;
+  } else {
+    errorMessage.textContent = '';
+    billTotalInput.classList.remove('error');
+  }
+
+  const tipPercentage = parseInt(tipSliderInput.value);
+  const tipAmount = (billTotal * tipPercentage) / 100;
+  const totalBillWithTip = billTotal + tipAmount;
+
+  tipPercentageInput.value = tipPercentage + '%';
+  tipAmountInput.value = tipAmount.toFixed(2);
+  totalBillWithTipInput.value = totalBillWithTip.toFixed(2);
 }
 
-// Function to calculate tip-related values
-function calc2() {
-    
-    // Get the bill total and tip percentage from input fields
-    let total = parseFloat(document.getElementById("total").value);
-    let tip = parseInt(document.getElementById("tip").value);
-    
-    // Display the tip percentage
-    document.getElementById("tipPercent").value = tip;
-    
-    // Calculate the tip amount and display it, rounding to 2 decimal places
-    let ans1 = total * tip / 100;
-    document.getElementById("tipAmount").value = ans1.toFixed(2);
-    
-    // Calculate the total bill with tip and display it, rounding to 2 decimal places
-    let ans2 = total + (total * tip / 100);
-    document.getElementById("totalWithTip").value = ans2.toFixed(2);
+function clearCalculation() {
+  tipPercentageInput.value = '';
+  tipAmountInput.value = '';
+  totalBillWithTipInput.value = '';
 }
+
+function isValidNumber(value) {
+  // Check if the input is a valid number (allowing for decimal points)
+  return /^\d+(\.\d+)?$/.test(value);
+}
+
+billTotalInput.addEventListener('input', calculateTip);
+tipSliderInput.addEventListener('input', calculateTip);
