@@ -1,0 +1,44 @@
+body {
+  background-image: url(background.png);
+}
+
+div {
+  color: #FFF;
+}
+h1{
+  font-family: Georgia, serif;
+
+}
+h2{
+  font-family: 'Courier New', monospace;
+
+}
+
+.container {
+  border-radius: 30px;
+  padding: 40px;
+  margin-top: 70px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 66%;
+  background-image: url(download.png);
+}
+
+.btn-primary {
+  background-color: rgb(241, 240, 240);
+  color: black;
+  border-radius: 25px;
+}
+
+.btn-primary:focus,
+.btn-primary:hover    {
+  background-image: linear-gradient(to right, rgb(239, 242, 233) , rgb(255, 0, 0));
+  color: #FFF;
+  
+}
+
+.sign::before {
+  content: "$";
+  color: black;
+}
